@@ -84,11 +84,10 @@ function isValidPlay(G,ctx,cardPlayed){
 	return true;
 }
 
-function findNextPlayer(G,ctx){
-	getRandomHand()
+function findNextPlayer(G,ctx) {
 	return 0;
-
 }
+
 
 
 function identifyBid(G,ctx,bidString){
@@ -195,21 +194,6 @@ function setUpDisallowedBidders(G,ctx){
 	G.disallowedBidders = G.disallowedBidders.concat(temp)
 }
 
-
-function getRandomHand(numPlayers){
-	let ranks = ['J', '9', 'A', '10', 'Q', 'K']
-	if (numPlayers === 8){
-		ranks.push(8)
-		ranks.push(7)
-	}
-    let cards = [].concat(...ranks.map(d => ['♣️', '♦️', '♥️', '♠'].map(e => "".concat(d, e))))
-    cards = [].concat(...new Array(2).fill(cards)).sort( () => Math.random() - 0.5).sort( () => Math.random() - 0.5)
-    let hand = []
-  	for (let i = 0; i < numPlayers; i++) {
-  		hand.push(cards.slice(i*8, (i+1)*8))
-    }
-    return hand;
-}
 
 function removeCard(cardPlayed){
 

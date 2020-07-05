@@ -13,7 +13,9 @@ export class fiftysixBoard extends React.Component {
           pass:'',
 		  }
     }
-
+    displayMessage(){
+      return  this.props.G.messages
+    }
 
     displayBid(){
       if(this.state.double === 1)
@@ -143,6 +145,8 @@ export class fiftysixBoard extends React.Component {
       		<>
       			{this.bidArea()}
       			<h4> Your Current Bid is { this.displayBid()}  <button key={'Pass' } onClick={() => this.onSubmitBid(this.displayBid())}> {'Submit' }</button></h4>
+
+            <h4> {this.displayMessage()} </h4>
       		</>
     	);
 	}

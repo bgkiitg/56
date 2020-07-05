@@ -4,7 +4,7 @@ import {bidTrump,playCard} from './moves.js'
 export const fiftysix = {
   setup: () => ({ 
   	//cells: Array().fill(null),
-  	message:'',
+  	messages:'',
   	bids: [],
   	points: [12,12],
 	gamesPlayed: 0,
@@ -36,7 +36,7 @@ export const fiftysix = {
   				return true
   			return false
   		},
-  		onEnd: (G, ctx ) => { G.message = "About to start Playing Phase"},
+  		onEnd: (G, ctx ) => { G.messages = "Bidding is finished. The Trump is " +G.bid.value + G.bid.trump},
   		next: 'playingPhase',
   		start: true
   	},
