@@ -49,6 +49,10 @@ export class fiftysixBoard extends React.Component {
       if(!isNaN(j)){
         this.setState({value: j, double: '', redouble: '', pass:''})
       }
+
+      if(j.length === 5){
+        this.setState({value: '+'+j[4], double: '', redouble: '', pass:'', reverse: ''})
+      }
     }
 
   	bidArea(){
@@ -114,11 +118,23 @@ export class fiftysixBoard extends React.Component {
 	fourthBidRow.push(<td style={cellStyle} key={'Pass'	} onClick={() => this.handleValue('P')}> {'P' }</td>);
   
 
-
-	bidMatrix.push(<tr key={"firstrow"}>{firstBidRow}</tr>)
+  let fifthBidRow= []
+  fifthBidRow.push(<td style={cellEmpty}> {''}</td>);
+  fifthBidRow.push(<td style={cellStyle} key={'+1' } onClick={() => this.handleValue('Plus1')}> {'+1' }</td>);
+  fifthBidRow.push(<td style={cellStyle} key={'+2' } onClick={() => this.handleValue('Plus2')}> {'+2' }</td>);
+  fifthBidRow.push(<td style={cellStyle} key={'+3' } onClick={() => this.handleValue('Plus3')}> {'+3' }</td>);
+  fifthBidRow.push(<td style={cellStyle} key={'+4' } onClick={() => this.handleValue('Plus4')}> {'+4' }</td>);
+  fifthBidRow.push(<td style={cellEmpty}> {''}</td>);
+  fifthBidRow.push(<td style={cellStyle} key={'+5' } onClick={() => this.handleValue('Plus5')}> {'+5' }</td>);
+  fifthBidRow.push(<td style={cellStyle} key={'+6' } onClick={() => this.handleValue('Plus6')}> {'+6' }</td>);
+  fifthBidRow.push(<td style={cellStyle} key={'+7' } onClick={() => this.handleValue('Plus7')}> {'+7' }</td>);
+  fifthBidRow.push(<td style={cellStyle} key={'+8' } onClick={() => this.handleValue('Plus8')}> {'+8' }</td>);
+	
+  bidMatrix.push(<tr key={"firstrow"}>{firstBidRow}</tr>)
 	bidMatrix.push(<tr key={"secondrow"}>{secondBidRow}</tr>)
 	bidMatrix.push(<tr key={"thirdrow"}>{thirdBidRow}</tr>)
 	bidMatrix.push(<tr key={"fourthrow"}>{fourthBidRow}</tr>)
+  bidMatrix.push(<tr key={"fifthrow"}>{fifthBidRow}</tr>)
 	return bidMatrix
 	}
 

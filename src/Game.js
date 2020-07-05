@@ -11,7 +11,7 @@ export const fiftysix = {
 	//hands: getRandomHand(6),
 	bid: {
 		bidder: '',
-		value: '',
+		value: 27,
 		trump: '',
 		doubler: '',
 		redoubler: '',
@@ -154,7 +154,6 @@ function identifyBid(G,ctx,bidString){
 	//No valid bids after redoubling
 	if(G.bid.redoubler !== '')
 		return 0
-
 	console.log(bidString)
 	switch(bidString) {
 		case "Pass":
@@ -181,6 +180,7 @@ function identifyBid(G,ctx,bidString){
 			switch(bidString.length){
 				case 3:
 					console.log("Straight Reverse or Plus")
+					if(bidString[1] === '+') return 0  //Disallow reverse bids
 					if(bidString[0]==='C' || bidString[0]==='D' || bidString[0]==='H' ||bidString[0]==='S' ){
 
 						if(Number(bidString.slice(1,3)) > G.bid.value && Number(bidString.slice(1,3)) <57)	return 6
