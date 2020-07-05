@@ -9,67 +9,45 @@ export class fiftysixBoard extends React.Component {
           trump: '',
           double: '',
           redouble: '',
-          reverse: '',
+          reverse: 0,
           pass:'',
-          bidComplete:''
-		}
+		  }
     }
 
-    displayBid(){
-    	let bidString=''
-    	if(this.state.bidComplete === 1){
-    		if(this.state.double === 1){
-    			return "X"
-    		}
-    		if(this.state.redouble === 1){
-    			return "XX"
-    		}
-    		if(this.state.reverse === 1){
-    			bidString= this.state.trump+this.state.value
-    			return bidString
-    		}
-    		if(this.state.pass === 1){
-    			return "Pass"
-    		}
-    		bidString=this.state.value+this.trump		
-    	} else{
-    		if(this.state.reverse === 1){
-    			bidString = this.state.trump+this.state.value
-    		}
-    		else{
-    			bidString = this.state.value+this.state.trump
-    		}
 
-    	}
-    	return bidString
+    displayBid(){
+      if(this.state.double === 1)
+        return "Double"
+      if(this.state.redouble === 1)
+        return "Redouble"
+      if(this.state.pass === 1)
+        return "Pass"
+      if(this.state.reverse === 1)
+        return this.state.trump + this.state.value
+      return this.state.value + this.state.trump
     }
   	onSubmitBid(bidString) {
       this.props.moves.bidTrump(bidString);
     }
 
     resetBid(){
-      this.setState({value: '', trump: '', double: '', redouble: '', reverse: '', pass: '', bidComplete: ''})
+      this.setState({value: '', trump: '', double: '', redouble: '', reverse: 0, pass: ''})
     }
   	handleValue(j){
-  		if(this.state.bidComplete === ''){
-        if(j === 'C' || j === 'D' || j === 'H' || j === 'S' || j === 'NT' || j === 'NS'){
-              this.setState({trump: j, double: '', redouble: '', reverse: '', pass:''})
-        }
-        if(j === 'X' || j ==='XX' || j === 'P'){
-          this.setState({value: '', trump: '', reverse: '', pass: '', bidComplete: 1, double: '', redouble: ''})
-          if(j=== 'X'){ this.setState({double: 1})}
-          if(j=== 'XX'){ this.setState({redouble: 1})} 
-          if(j=== 'P'){ this.setState({pass: 1})}
-  		  }
-        if(j === 'R'){
-          if (this.state.reverse === ''){
-            this.setState({reverse: 1})}
-          else{
-            this.setState({reverse: ''})}
-        }
-        if(!isNaN(j)){
-          this.setState({value: j})
-        }
+      if(j === 'C' || j === 'D' || j === 'H' || j === 'S' || j === 'NT' || j === 'NS'){
+        this.setState({trump: j, double: '', redouble: '', pass:''})
+      }
+      if(j === 'X' || j ==='XX' || j === 'P'){
+        this.resetBid()
+        if(j=== 'X'){ this.setState({double: 1})}
+        if(j=== 'XX'){ this.setState({redouble: 1})} 
+        if(j=== 'P'){ this.setState({pass: 1})}
+  		}
+      if(j === 'R'){
+        this.setState({reverse: (this.state.reverse +1)%2})
+      }
+      if(!isNaN(j)){
+        this.setState({value: j, double: '', redouble: '', pass:''})
       }
     }
 
@@ -122,7 +100,7 @@ export class fiftysixBoard extends React.Component {
 
 
 	let fourthBidRow =[]
-	fourthBidRow.push(<td style={cellEmpty}> {''}</td>);
+	//fourthBidRow.push(<td style={cellEmpty}> {''}</td>);
 	fourthBidRow.push(<td style={cellStyle} key={'C'	} onClick={() => this.handleValue('C')}> {'C' }</td>)
 	fourthBidRow.push(<td style={cellStyle} key={'D'	} onClick={() => this.handleValue('D')}> {'D' }</td>);
 	fourthBidRow.push(<td style={cellStyle} key={'H'	} onClick={() => this.handleValue('H')}> {'H' }</td>);
@@ -148,7 +126,7 @@ export class fiftysixBoard extends React.Component {
     	return (
       		<>
       			{this.bidArea()}
-      			<h4> Current Bid is { this.displayBid()} </h4>
+      			<h4> Your Current Bid is { this.displayBid()}  <button key={'Pass' } onClick={() => this.onSubmitBid(this.displayBid())}> {'Submit' }</button></h4>
       		</>
     	);
 	}
