@@ -11,6 +11,7 @@ export class fiftysixBoard extends React.Component {
           redouble: '',
           reverse: 0,
           pass:'',
+          card:''
 		  }
     }
     displayMessage(){
@@ -28,6 +29,7 @@ export class fiftysixBoard extends React.Component {
         return this.state.trump + this.state.value
       return this.state.value + this.state.trump
     }
+
   	onSubmitBid(bidString) {
       this.props.moves.bidTrump(bidString);
     }
@@ -140,12 +142,64 @@ export class fiftysixBoard extends React.Component {
 	return bidMatrix
 	}
 
+
+  displayHand(playerName){
+    const cellStyle = {
+        border: '1px solid #555',
+        width: '50px',
+        height: '50px',
+        lineHeight: '50px',
+        textAlign: 'center',
+    };
+
+
+
+    const cellEmpty = {
+    width: '50px',
+    height: '50px',
+    lineHeight: '50px',
+    textAlign: 'center'   
+  };
+
+  
+  let playMatrix = []
+  //for(let x=0; x < this.props.G.numPlayers; x++){
+    let playerHand=[]
+    for(let y=0; y<this.props.G.hands[playerName].length; y++){
+      let card = this.props.G.hands[playerName][y]
+      playerHand.push(<td style={cellStyle} key={'check' } onClick={() => this.handleCardClick(card)}> {card}</td>)
+    }
+    playMatrix.push(<tr key={"Row"+'0'}>Player {playerName}{playerHand}</tr>)
+    
+  //}
+
+  //playMatrix.push(<td style={cellStyle} key={'check' } onClick={() => this.handleValue('Plus8')}> {this.props.G.hands[0][1]}</td>);
+  return playMatrix
+  }
+
+
+  handleCardClick(card){
+    this.setState({card: card})
+  }
+  
+  playCard(card){
+    this.props.moves.playCard(card);
+  }
+  displayCard(){
+    return this.state.card
+  }
 	render() {
     	return (
       		<>
       			{this.bidArea()}
       			<h4> Your Current Bid is { this.displayBid()}  <button key={'Pass' } onClick={() => this.onSubmitBid(this.displayBid())}> {'Submit' }</button></h4>
-
+            {this.displayHand(0)}
+            {this.displayHand(1)}
+            {this.displayHand(2)}
+            {this.displayHand(3)}
+            {this.displayHand(4)}
+            {this.displayHand(5)}
+            <h4> The card you have selected is { this.displayCard()}  <button key={'Pass' } onClick={() => this.playCard(this.displayCard())}> {'Play' }</button></h4>
             <h4> {this.displayMessage()} </h4>
       		</>
     	);

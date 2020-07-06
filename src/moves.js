@@ -68,10 +68,12 @@ export const bidTrump = (G,ctx,bidString) => {
 
 	
 export const playCard =  (G,ctx,cardPlayed) => {
-	if(isValidPlay(G,ctx,cardPlayed)){
-		G.cardPlayed.push(cardPlayed)
-		G.nextplayer = findNextPlayer(G,ctx)
-		removeCard(cardPlayed)
+	if(isValidPlay(G,ctx,cardPlayed)){	
+		G.cardsPlayed.push(cardPlayed)
+		removeCard(G,ctx,cardPlayed,G.nextPlayer)
+		G.nextPlayer = (G.nextPlayer+ 1)%6
+		G.messages = "The next player is"+ G.nextPlayer
+	
 	}
 	else
 		return INVALID_MOVE
@@ -80,8 +82,8 @@ export const playCard =  (G,ctx,cardPlayed) => {
 
 
 function isValidPlay(G,ctx,cardPlayed){
-
-	return true;
+	if(G.hands[G.nextPlayer].includes(cardPlayed))
+		return true;
 }
 
 function findNextPlayer(G,ctx) {
@@ -195,6 +197,13 @@ function setUpDisallowedBidders(G,ctx){
 }
 
 
-function removeCard(cardPlayed){
-
+function removeCard(G,ctx,cardPlayed,player){
+	const arr=[]
+	for(let i=0;i<G.hands[player].length;i++){
+		if(G.hands[player][i] !==cardPlayed){
+			arr.push(G.hands[player][i])
+		}
+	}
+	console.log(arr)
+	G.hands[player]=arr
 }

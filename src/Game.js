@@ -5,6 +5,7 @@ export const fiftysix = {
   setup: () => ({ 
   	//cells: Array().fill(null),
   	messages:'',
+  	cardsPlayed: [],
   	bids: [],
   	points: [12,12],
 	gamesPlayed: 0,
@@ -20,8 +21,8 @@ export const fiftysix = {
 		bidCount: 0,
 		passCount: 0
 	},
-	disallowedBidders: [],
-	cardsPlayed: []
+	disallowedBidders: []
+	
   }),
 
   turn: {
@@ -30,7 +31,7 @@ export const fiftysix = {
 
   phases: {
   	biddingPhase:{
-  		moves: {bidTrump},
+  		moves: {bidTrump , playCard},
   		endIf : (G,ctx) => {
   			if((G.bid.redoubler !== '')||(G.bid.passCount === G.numPlayers))
   				return true
