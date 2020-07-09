@@ -1,5 +1,5 @@
 import React from 'react';
-import {cellStyle, cellEmpty} from './Bidding.js'
+import {cellStyle, cellEmpty} from './styles.js'
 
 export class fiftysixBoard extends React.Component {
 	constructor(props) {
@@ -149,7 +149,7 @@ export class fiftysixBoard extends React.Component {
 
   playingPhaseView(){
     let finalBidString = <h4> Your Current Bid is { this.displayBid()}  <button key={'Pass' } onClick={() =>  this.props.moves.bidTrump(this.displayBid())}> {'Submit' }</button></h4>  
-  	return final
+  	return finalBidString
   }
 
   render() {

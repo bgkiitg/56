@@ -5,8 +5,8 @@ import { Local } from 'boardgame.io/multiplayer';
 
 const App = Client({ 
 	game: fiftysix,
-	board:fiftysixBoard,
-	multiplayer: Local()}
+	board:fiftysixBoard,}
+	//ultiplayer: Local()}
 );
 
 export default App;
