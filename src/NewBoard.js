@@ -6,6 +6,7 @@ export class fiftysixBoard extends React.Component {
     super(props);
     this.state = {
       value : '',
+      playerID: '',
       trump: '',
       double: '',
       redouble: '',
@@ -13,6 +14,7 @@ export class fiftysixBoard extends React.Component {
       pass:'',
       card:''
 	 }
+
   }
 
 
